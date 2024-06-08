@@ -7,7 +7,7 @@
   - [3.1 BMS](#31-bms)
     - [3.1.1 State](#311-state)
     - [3.1.2 Cell Data](#312-cell-data)
-  - [3.1.3 Accumulator Data](#313-accumulator-data)
+    - [3.1.3 Accumulator Data](#313-accumulator-data)
   - [3.2 APPS](#32-apps)
     - [3.2.1 Normalized Brake](#321-normalized-brake)
     - [3.2.2 RMS Param Msg](#322-rms-param-msg)
@@ -31,7 +31,8 @@ Other files:
 * ```FEB_CAN_ID.csv```: A CSV file that stores names of CAN messages without assigned CAN IDs. This file is used to generate dynamic CAN IDs.
 * ```FEB_CAN_Static_ID.csv```: A CSV file that sores names of CAN messages and their assigned CAN ID.
 * ```generate.py```: This file uses data from ```FEB_CAN_ID.csv``` and ```FEB_CAN_Static_ID.csv``` to generate ```FEB_CAN_ID.h```.
-* ```FEB_CAN_ID.py```: This file storse all CAN Message IDs. Used for the CAN Monitor.
+* ```feb_can_id.py```: A Python file that stores all CAN Message IDs.
+* ```README.md```: Documentation for the CAN Library.
 
 # 2 Update Instructions
 1. <b>Add CAN Message</b>: To add a CAN message with a static CAN ID, update ```FEB_CAN_Static_ID.csv``` file. To add a CAN message without a static CAN ID, update the ```FEB_CAN_ID.csv``` file.
@@ -171,7 +172,7 @@ Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian form
   </tr>
 </table>
 
-## 3.1.3 Accumulator Data
+### 3.1.3 Accumulator Data
 <table>
   <tr>
     <th>Byte</th>
