@@ -1,11 +1,11 @@
 #ifndef INC_FEB_CAN_H_
 #define INC_FEB_CAN_H_
 
-// **************************************** Includes ****************************************
+// ******** Includes ********
 
 #include "stm32f4xx_hal.h"
 
-// **************************************** Functions ****************************************
+// ******** Functions ********
 
 void FEB_CAN_Init(void);
 void FEB_CAN_Filter_Config(void);

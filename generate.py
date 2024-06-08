@@ -1,4 +1,5 @@
 import csv
+from typing import Callable
 
 # Constants
 
@@ -13,58 +14,58 @@ PYTHON_FILENAME = "feb_can_id.py"
 
 # Global Variables
 
-CAN_Static_Id_Set = set()
-CAN_Id = 0
+CAN_static_id_set = set()
+CAN_id = 0
 
 # CAN
 
-def Get_Available_CAN_Id() -> int:
-    global CAN_Id
-    while CAN_Id in CAN_Static_Id_Set:
-        CAN_Id += 1
-    CAN_Id += 1
-    return CAN_Id - 1
+def get_available_CAN_id() -> int:
+    global CAN_id
+    while CAN_id in CAN_static_id_set:
+        CAN_id += 1
+    CAN_id += 1
+    return CAN_id - 1
 
-def Format_CAN_Message_Name(name: str) -> str:
+def format_CAN_message_name(name: str) -> str:
     return C_CAN_MESSAGE_PREFIX + "_".join(name.upper().split(" "))
     
 # C Header File
 
-def Is_C_Comment(csv_row: "list(str)") -> bool:
+def is_c_comment(csv_row: list[str]) -> bool:
     return "//" in csv_row[0]
 
-def C_Header_Comment(s: str) -> str:
+def c_header_comment(s: str) -> str:
     return f"// {'*' * 40} {s} {'*' * 40}"
 
-def C_Define_Macro(name: str, value: "hex") -> str:
+def c_define_macro(name: str, value: "hex") -> str:
     return f"#define {name} {value}"
 
-def Generate_C_Header_File(filename: str, CAN_Id_Data: list[dict], CAN_Static_Id_Data: list[dict]) -> None:
-    def Write_CAN_ID_To_File(CAN_Id_Data: list[dict]):
-        for CAN_Message in CAN_Id_Data:
-            if "comment" in CAN_Message:
-                C_Header_File.write("\n")
-                C_Header_File.write(CAN_Message["comment"] + "\n")
+def generate_c_header_file(filename: str, CAN_id_data: list[dict], CAN_static_id_data: list[dict]) -> None:
+    def write_CAN_id_to_file(CAN_id_data: list[dict]):
+        for CAN_message in CAN_id_data:
+            if "comment" in CAN_message:
+                c_header_file.write("\n")
+                c_header_file.write(CAN_message["comment"] + "\n")
             else:
-                C_Header_File.write(C_Define_Macro(CAN_Message["name"], CAN_Message["id"]) + "\n")
+                c_header_file.write(c_define_macro(CAN_message["name"], CAN_message["id"]) + "\n")
 
-    with open(filename, "w") as C_Header_File:
+    with open(filename, "w") as c_header_file:
         # Open header guard
-        C_Header_File.write(f"#ifndef {C_HEADER_GUARD}\n")
-        C_Header_File.write(f"#define {C_HEADER_GUARD}\n")
+        c_header_file.write(f"#ifndef {C_HEADER_GUARD}\n")
+        c_header_file.write(f"#define {C_HEADER_GUARD}\n")
 
         # Write CAN IDs
-        C_Header_File.write("\n")
-        C_Header_File.write(C_Header_Comment("Static CAN IDs") + "\n")
-        Write_CAN_ID_To_File(CAN_Static_Id_Data)
+        c_header_file.write("\n")
+        c_header_file.write(c_header_comment("Static CAN IDs") + "\n")
+        write_CAN_id_to_file(CAN_static_id_data)
 
-        C_Header_File.write("\n")
-        C_Header_File.write(C_Header_Comment("Dynamic CAN IDs") + "\n")
-        Write_CAN_ID_To_File(CAN_Id_Data)
+        c_header_file.write("\n")
+        c_header_file.write(c_header_comment("Dynamic CAN IDs") + "\n")
+        write_CAN_id_to_file(CAN_id_data)
 
         # Close header guard
-        C_Header_File.write("\n")
-        C_Header_File.write(f"#endif /* {C_HEADER_GUARD} */\n")
+        c_header_file.write("\n")
+        c_header_file.write(f"#endif /* {C_HEADER_GUARD} */\n")
 
 # Python file
 
@@ -74,67 +75,67 @@ def Python_Header_Comment(s: str) -> str:
 def Python_Assign_Macro(name: str, value: "hex") -> str:
     return f"{name} = {value}"
 
-def Generate_Python_File(filename: str, CAN_Id_Data: list[dict], CAN_Static_Id_Data: list[dict]) -> None:
-    def Write_CAN_ID_To_File(CAN_Id_Data: list[dict]):
-        for CAN_Message in CAN_Id_Data:
-            if "comment" in CAN_Message:
-                Python_File.write("\n")
-                Python_File.write(f"# {CAN_Message['comment'][3:]}\n")
+def generate_python_file(filename: str, CAN_id_data: list[dict], CAN_static_id_data: list[dict]) -> None:
+    def write_CAN_id_to_file(CAN_id_data: list[dict]):
+        for CAN_message in CAN_id_data:
+            if "comment" in CAN_message:
+                python_file.write("\n")
+                python_file.write(f"# {CAN_message['comment'][3:]}\n")
             else:
-                Python_File.write(Python_Assign_Macro(CAN_Message["name"].replace(C_CAN_MESSAGE_PREFIX, ''), 
-                                                      CAN_Message["id"]) + "\n")
+                python_file.write(Python_Assign_Macro(CAN_message["name"].replace(C_CAN_MESSAGE_PREFIX, ''), 
+                                                      CAN_message["id"]) + "\n")
 
-    with open(filename, "w") as Python_File:
+    with open(filename, "w") as python_file:
         # Static CAN IDs
-        Python_File.write(Python_Header_Comment("Static CAN IDs") + "\n")
-        Write_CAN_ID_To_File(CAN_Static_Id_Data)
-        Python_File.write("\n")
+        python_file.write(Python_Header_Comment("Static CAN IDs") + "\n")
+        write_CAN_id_to_file(CAN_static_id_data)
+        python_file.write("\n")
 
         # Dynamic CAN IDs
-        Python_File.write(Python_Header_Comment("Dynamic CAN IDs") + "\n")
-        Write_CAN_ID_To_File(CAN_Id_Data)
+        python_file.write(Python_Header_Comment("Dynamic CAN IDs") + "\n")
+        write_CAN_id_to_file(CAN_id_data)
 
 # CSV File
 
-def Is_CSV_Comment(CSV_Row: "list(str)") -> bool:
-    return "#" in CSV_Row[0]
+def is_csv_comment(csv_row: list[str]) -> bool:
+    return "#" in csv_row[0]
 
-def Read_CSV_Data(filename: str, Row_Func: "function") -> "list(str)":
-    CAN_Id_Data = []
-    with open(filename) as CSV_File:
-        CSV_Reader = csv.reader(CSV_File, delimiter=",")
-        for row in CSV_Reader:
-            if row and not Is_CSV_Comment(row):
-                CAN_Id_Data.append(Row_Func(row))
-    return CAN_Id_Data
+def read_csv_data(filename: str, row_func: Callable[[list[str]], dict[str, str]]) -> list[str]:
+    CAN_id_data = []
+    with open(filename) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=",")
+        for row in csv_reader:
+            if row and not is_csv_comment(row):
+                CAN_id_data.append(row_func(row))
+    return CAN_id_data
 
-def Process_CAN_Id_CSV_Row(row: "list(str)") -> dict:
-    if Is_C_Comment(row):
-        CAN_Message_Data = {"comment": row[0]}
+def process_CAN_id_csv_row(row: list[str]) -> dict[str, str]:
+    if is_c_comment(row):
+        CAN_message_data = {"comment": row[0]}
     else:
-        CAN_Message_Data = {
-            "name": Format_CAN_Message_Name(row[0]),
-            "id": hex(Get_Available_CAN_Id())
+        CAN_message_data = {
+            "name": format_CAN_message_name(row[0]),
+            "id": hex(get_available_CAN_id())
         }
-    return CAN_Message_Data
+    return CAN_message_data
 
-def Process_CAN_Static_Id_CSV_Row(row: "list(str)") -> dict:
-    if Is_C_Comment(row):
-        CAN_Message_Data = {"comment": row[0]}
+def process_CAN_static_id_csv_row(row: list[str]) -> dict[str, str]:
+    if is_c_comment(row):
+        CAN_message_data = {"comment": row[0]}
     else:
         CAN_Id = int(row[1], 0)
-        CAN_Message_Data = {
-            "name": Format_CAN_Message_Name(row[0]),
+        CAN_message_data = {
+            "name": format_CAN_message_name(row[0]),
             "id": hex(CAN_Id)
         }
-        CAN_Static_Id_Set.add(CAN_Id)
-    return CAN_Message_Data
+        CAN_static_id_set.add(CAN_Id)
+    return CAN_message_data
 
-def main():
-    CSV_Static_Id_Data = Read_CSV_Data(CAN_STATIC_ID_CSV_FILENAME, Process_CAN_Static_Id_CSV_Row)
-    CSV_ID_Data = Read_CSV_Data(CAN_ID_CSV_FILENAME, Process_CAN_Id_CSV_Row)
-    Generate_C_Header_File(C_HEADER_FILENAME, CSV_ID_Data, CSV_Static_Id_Data)
-    Generate_Python_File(PYTHON_FILENAME, CSV_ID_Data, CSV_Static_Id_Data)
+def main() -> None:
+    csv_static_id_data = read_csv_data(CAN_STATIC_ID_CSV_FILENAME, process_CAN_static_id_csv_row)
+    csv_id_data = read_csv_data(CAN_ID_CSV_FILENAME, process_CAN_id_csv_row)
+    generate_c_header_file(C_HEADER_FILENAME, csv_id_data, csv_static_id_data)
+    generate_python_file(PYTHON_FILENAME, csv_id_data, csv_static_id_data)
 
 if __name__ == "__main__":
     main()

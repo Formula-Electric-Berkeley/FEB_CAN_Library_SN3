@@ -1,10 +1,10 @@
-// **************************************** Includes & External ****************************************
+// ******** Includes & External ********
 
 #include "FEB_CAN.h"
 
 extern CAN_HandleTypeDef hcan1;
 
-// **************************************** CAN Configuration ****************************************
+// ******** CAN Configuration ********
 
 CAN_TxHeaderTypeDef FEB_CAN_Tx_Header;
 static CAN_RxHeaderTypeDef FEB_CAN_Rx_Header;
@@ -14,7 +14,7 @@ uint8_t FEB_CAN_Rx_Data[8];
 
 uint32_t FEB_CAN_Tx_Mailbox;
 
-// **************************************** Functions ****************************************
+// ******** Functions ********
 
 void FEB_CAN_Init(void) {
 	FEB_CAN_Filter_Config();
@@ -37,7 +37,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan) {
 	}
 }
 
-// **************************************** Template Code [Other Files] ****************************************
+// ******** Template Code [Other Files] ********
 
 uint8_t FEB_CAN_Filter(CAN_HandleTypeDef* hcan, uint8_t FIFO_assignment, uint8_t filter_bank) {
     // For multiple filters, create array of filter IDs and loop over IDs.
