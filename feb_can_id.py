@@ -1,4 +1,4 @@
-# **************************************** Static CAN IDs ****************************************
+# ******** Static CAN IDs ********
 
 # Charger
 CHARGER_BMS = 0x1806e5f4
@@ -26,7 +26,7 @@ RMS_PARAMETER = 0xc1
 # APPS
 APPS_TPS = 0x80
 
-# **************************************** Dynamic CAN IDs ****************************************
+# ******** Dynamic CAN IDs ********
 
 # BMS
 BMS_STATE = 0x0
@@ -34,13 +34,13 @@ BMS_CELL_DATA = 0x1
 BMS_ACCUMULATOR_VOLTAGE = 0x2
 BMS_ACCUMULATOR_TEMPERATURE = 0x3
 
-# ICS
-ICS_BUTTON_STATE = 0x4
-ICS_TEST = 0x5
-
 # APPS
-APPS_BRAKE_PEDAL = 0x6
-APPS_BSPD = 0x7
+APPS_BRAKE_PEDAL = 0x4
+APPS_BSPD = 0x5
+
+# ICS
+ICS_BUTTON_STATE = 0x6
+ICS_TEST = 0x7
 
 # DART
 DART_DART1_MEASURED_FAN_SPEEDS = 0x8

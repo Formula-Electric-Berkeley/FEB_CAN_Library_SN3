@@ -8,13 +8,13 @@ BMS Cell Data
 BMS Accumulator Voltage
 BMS Accumulator Temperature
 
-// ICS
-ICS Button State
-ICS TEST
-
 // APPS
 APPS Brake Pedal
 APPS BSPD
+
+// ICS
+ICS Button State
+ICS TEST
 
 // DART
 DART DART1 Measured Fan Speeds

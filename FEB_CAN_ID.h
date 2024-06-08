@@ -1,7 +1,7 @@
 #ifndef INC_FEB_CAN_ID_H_
 #define INC_FEB_CAN_ID_H_
 
-// **************************************** Static CAN IDs ****************************************
+// ******** Static CAN IDs ********
 
 // Charger
 #define FEB_CAN_ID_CHARGER_BMS 0x1806e5f4
@@ -29,7 +29,7 @@
 // APPS
 #define FEB_CAN_ID_APPS_TPS 0x80
 
-// **************************************** Dynamic CAN IDs ****************************************
+// ******** Dynamic CAN IDs ********
 
 // BMS
 #define FEB_CAN_ID_BMS_STATE 0x0
@@ -37,13 +37,13 @@
 #define FEB_CAN_ID_BMS_ACCUMULATOR_VOLTAGE 0x2
 #define FEB_CAN_ID_BMS_ACCUMULATOR_TEMPERATURE 0x3
 
-// ICS
-#define FEB_CAN_ID_ICS_BUTTON_STATE 0x4
-#define FEB_CAN_ID_ICS_TEST 0x5
-
 // APPS
-#define FEB_CAN_ID_APPS_BRAKE_PEDAL 0x6
-#define FEB_CAN_ID_APPS_BSPD 0x7
+#define FEB_CAN_ID_APPS_BRAKE_PEDAL 0x4
+#define FEB_CAN_ID_APPS_BSPD 0x5
+
+// ICS
+#define FEB_CAN_ID_ICS_BUTTON_STATE 0x6
+#define FEB_CAN_ID_ICS_TEST 0x7
 
 // DART
 #define FEB_CAN_ID_DART_DART1_MEASURED_FAN_SPEEDS 0x8

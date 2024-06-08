@@ -35,7 +35,7 @@ def is_c_comment(csv_row: list[str]) -> bool:
     return "//" in csv_row[0]
 
 def c_header_comment(s: str) -> str:
-    return f"// {'*' * 40} {s} {'*' * 40}"
+    return f"// {'*' * 8} {s} {'*' * 8}"
 
 def c_define_macro(name: str, value: "hex") -> str:
     return f"#define {name} {value}"
@@ -69,10 +69,10 @@ def generate_c_header_file(filename: str, CAN_id_data: list[dict], CAN_static_id
 
 # Python file
 
-def Python_Header_Comment(s: str) -> str:
-    return f"# {'*' * 40} {s} {'*' * 40}"
+def python_header_comment(s: str) -> str:
+    return f"# {'*' * 8} {s} {'*' * 8}"
 
-def Python_Assign_Macro(name: str, value: "hex") -> str:
+def python_assign_macro(name: str, value: "hex") -> str:
     return f"{name} = {value}"
 
 def generate_python_file(filename: str, CAN_id_data: list[dict], CAN_static_id_data: list[dict]) -> None:
@@ -82,17 +82,17 @@ def generate_python_file(filename: str, CAN_id_data: list[dict], CAN_static_id_d
                 python_file.write("\n")
                 python_file.write(f"# {CAN_message['comment'][3:]}\n")
             else:
-                python_file.write(Python_Assign_Macro(CAN_message["name"].replace(C_CAN_MESSAGE_PREFIX, ''), 
+                python_file.write(python_assign_macro(CAN_message["name"].replace(C_CAN_MESSAGE_PREFIX, ''), 
                                                       CAN_message["id"]) + "\n")
 
     with open(filename, "w") as python_file:
         # Static CAN IDs
-        python_file.write(Python_Header_Comment("Static CAN IDs") + "\n")
+        python_file.write(python_header_comment("Static CAN IDs") + "\n")
         write_CAN_id_to_file(CAN_static_id_data)
         python_file.write("\n")
 
         # Dynamic CAN IDs
-        python_file.write(Python_Header_Comment("Dynamic CAN IDs") + "\n")
+        python_file.write(python_header_comment("Dynamic CAN IDs") + "\n")
         write_CAN_id_to_file(CAN_id_data)
 
 # CSV File
