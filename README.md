@@ -2,7 +2,9 @@
 
 - [CAN Library](#can-library)
 - [1 Overview](#1-overview)
-- [2 Update Instructions](#2-update-instructions)
+- [2 Usage](#2-usage)
+  - [2.1 Git Submodule](#21-git-submodule)
+  - [2.2 Update Library](#22-update-library)
 - [3 CAN Message Documentation](#3-can-message-documentation)
   - [3.1 BMS](#31-bms)
     - [3.1.1 State](#311-state)
@@ -23,6 +25,11 @@
     - [3.6.1 Measured Fan Speeds (Both DART1 and DART2)](#361-measured-fan-speeds-both-dart1-and-dart2)
 
 # 1 Overview
+
+Branches:
+* ```main```: Stores all files and latest changes.
+* ```stm32```: Stores ```FEB_CAN_ID.h``` file. This branch is a shared submodule for all STM32 projects.
+
 STM32 Files:
 * ```FEB_CAN_ID.h```: A header file that stores all CAN Message IDs.
 * ```FEB_CAN.c```: A file that handles CAN library initialization and received message handling. Additional CAN files will build of this one. File contains template code for writing additional CAN files.
@@ -35,11 +42,43 @@ Other files:
 * ```feb_can_id.py```: A Python file that stores all CAN Message IDs.
 * ```README.md```: Documentation for the CAN Library.
 
-# 2 Update Instructions
+# 2 Usage
+
+## 2.1 Git Submodule
+1. <b>Add</b>: Install submodule into STM32 project, in Core/Inc/FEB_CAN_Library. Example command for BMS project is provided below.
+
+   ```
+   git submodule add -b stm32 git@github.com:Formula-Electric-Berkeley/FEB_CAN_Library_SN3.git BMS/Core/Inc/FEB_CAN_Library
+   ```
+
+   Command template.
+   ```
+   git submodule add -b stm32 <CAN Library GitHub URL> project_name/Core/Inc/FEB_CAN_Library
+   ```
+2. <b>Update</b>: Run this command periodically to update the CAN library for STM32 projects.
+   ```
+   git submodule update --init --remote --recursive
+   ```
+
+## 2.2 Update Library
+Updating the library is a 2 step process, across branches ```main``` and ```stm32```.
+
+<b>Git Branch</b>: ```main```
+
 1. <b>Add CAN Message</b>: To add a CAN message with a static CAN ID, update ```FEB_CAN_Static_ID.csv``` file. To add a CAN message without a static CAN ID, update the ```FEB_CAN_ID.csv``` file.
 2. <b>Generate</b>: Run ```generate.py``` script. This will update the ```FEB_CAN_ID.h``` header file.
 3. <b>Documentation</b>: Document the new CAN message in this readme file.
-4. <b>GitHub</b>: Push all changes to GitHub to ensure the CAN Library is up to date for everyone.
+4. <b>GitHub</b>: Commit and push changes to GitHub.
+
+<b>Git Branch</b>: ```stm32```
+
+1. <b>Update</b>: Fetch changes from main branch.
+   
+   ```
+   git checkout main -- FEB_CAN_ID.h
+   ```
+
+2. <b>GitHub</b>: Commit and push changes to GitHub.
 
 # 3 CAN Message Documentation
 Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian format.
