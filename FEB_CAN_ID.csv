@@ -3,13 +3,10 @@
 # '//' creates C comment
 
 // BMS
-BMS Temperature
-BMS Enabled Temperature Sensors
-BMS Voltage
 BMS State
-BMS Balance
-BMS DART1 Requested Fan Speeds
-BMS DART2 Requested Fan Speeds
+BMS Cell Data
+BMS Accumulator Voltage
+BMS Accumulator Temperature
 
 // ICS
 ICS Button State
@@ -19,6 +16,6 @@ ICS TEST
 APPS Brake Pedal
 APPS BSPD
 
-//DART
+// DART
 DART DART1 Measured Fan Speeds
 DART DART2 Measured Fan Speeds

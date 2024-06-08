@@ -7,7 +7,8 @@
   - [3.1 BMS](#31-bms)
     - [3.1.1 State](#311-state)
     - [3.1.2 Cell Data](#312-cell-data)
-    - [3.1.3 Accumulator Data](#313-accumulator-data)
+    - [3.1.3 Accumulator Voltage](#313-accumulator-voltage)
+    - [3.1.4 Accumulator Temperature](#314-accumulator-temperature)
   - [3.2 APPS](#32-apps)
     - [3.2.1 Normalized Brake](#321-normalized-brake)
     - [3.2.2 RMS Param Msg](#322-rms-param-msg)
@@ -41,11 +42,9 @@ Other files:
 4. <b>GitHub</b>: Push all changes to GitHub to ensure the CAN Library is up to date for everyone.
 
 # 3 CAN Message Documentation
-
 Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian format.
 
 ## 3.1 BMS
-
 ### 3.1.1 State
 <table>
   <tr>
@@ -57,6 +56,16 @@ Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian form
     <td>0</td>
     <td>BMS State</td>
     <td>uint8_t</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Relay State</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>GPIO Sense</td>
+    <td>-</td>
   </tr>
 </table>
 
@@ -100,6 +109,52 @@ Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian form
   <tr>
     <td>8</td>
     <td>Fault</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Relay State Bit</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>BMS Shutdown</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>AIR+</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Precharge</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>GPIO Sense Bit</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>AIR- Sense</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>AIR+ Sense</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>BMS Shutdown Sense</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>IMD Shutdown Sense</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Charge Sense</td>
   </tr>
 </table>
 
@@ -172,7 +227,7 @@ Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian form
   </tr>
 </table>
 
-### 3.1.3 Accumulator Data
+### 3.1.3 Accumulator Voltage
 <table>
   <tr>
     <th>Byte</th>
@@ -185,6 +240,46 @@ Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian form
     <td>Total Pack Voltage</td>
     <td>mV</td>
     <td>uint16_t</td>
+  </tr>
+  <tr>
+    <td>2-3</td>
+    <td>Min Cell Voltage</td>
+    <td>mV</td>
+    <td>uint16_t</td>
+  </tr>
+  <tr>
+    <td>4-5</td>
+    <td>Max Cell Voltage</td>
+    <td>mV</td>
+    <td>uint16_t</td>
+  </tr>
+</table>
+
+### 3.1.4 Accumulator Temperature
+<table>
+  <tr>
+    <th>Byte</th>
+    <th>Value</th>
+    <th>Unit</th>
+    <th>Datatype</th>
+  </tr>
+  <tr>
+    <td>0-1</td>
+    <td>Average Cell Temperature</td>
+    <td>dC</td>
+    <td>int16_t</td>
+  </tr>
+  <tr>
+    <td>2-3</td>
+    <td>Min Cell Temperature</td>
+    <td>dC</td>
+    <td>int16_t</td>
+  </tr>
+  <tr>
+    <td>4-5</td>
+    <td>Max Cell Temperature</td>
+    <td>dC</td>
+    <td>int16_t</td>
   </tr>
 </table>
 
