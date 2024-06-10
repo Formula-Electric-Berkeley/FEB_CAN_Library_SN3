@@ -18,6 +18,14 @@
     - [3.2.4 BSPD](#324-bspd)
     - [3.2.5 Current](#325-current)
   - [3.3 LVPDB](#33-lvpdb)
+    - [3.3.1 Bus Current](#331-bus-current)
+    - [3.3.2 Bus Voltage](#332-bus-voltage)
+    - [3.3.3 CP Current](#333-cp-current)
+    - [3.3.4 CP Voltage](#334-cp-voltage)
+    - [3.3.5 AF Current](#335-af-current)
+    - [3.3.6 AF Voltage](#336-af-voltage)
+    - [3.3.7 RF Current](#337-rf-current)
+    - [3.3.8 RF Voltage](#338-rf-voltage)
   - [3.4 DCU](#34-dcu)
   - [3.5 ICS](#35-ics)
     - [3.5.1 Buttons \& Swtiches](#351-buttons--swtiches)
@@ -491,6 +499,24 @@ Note: Bytes and bits are 0-indexed. Multi-byte data is stored in Big-Endian form
 </body>
 
 ## 3.3 LVPDB
+The LVPDB transmits 1 byte messages that correspond to the voltage and currents on the main bus, coolant pump, accumulator fans, or radiator fans. 
+### 3.3.1 Bus Current 
+<table>
+    <tr>
+        <th>Byte</th>
+        <th>Value</th>
+        <th>Datatype</th>
+    </tr>
+    <tr>
+        <td>1-2</td>
+        <td>Bus Current</td>
+        <td>int16_t</td>
+  Bus current should be measured to the second decimal place. Intended to be measured in mA
+  
+ 
+    </tr>
+</table>
+
 
 ## 3.4 DCU
 
