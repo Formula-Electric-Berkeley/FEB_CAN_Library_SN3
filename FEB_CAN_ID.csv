@@ -1,0 +1,21 @@
+# Comment
+# Format: device + message name
+# '//' creates C comment
+
+// BMS
+BMS State
+BMS Cell Data
+BMS Accumulator Voltage
+BMS Accumulator Temperature
+
+// APPS
+APPS Brake Pedal
+APPS BSPD
+
+// ICS
+ICS Button State
+ICS TEST
+
+// DART
+DART DART1 Measured Fan Speeds
+DART DART2 Measured Fan Speeds
