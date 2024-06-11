@@ -26,6 +26,10 @@ LVPDB AF Voltage
 LVPDB RF Current
 LVPDB RF Voltage 
 
+//Sensor Nodes 
+Sensor Wheel Speed 
+Sensor Lin Pot
+
 // DART
 DART DART1 Measured Fan Speeds
 DART DART2 Measured Fan Speeds
